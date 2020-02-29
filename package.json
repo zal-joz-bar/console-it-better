@@ -26,7 +26,11 @@
   },
   "homepage": "https://github.com/joz-bar/console-it-better#readme",
   "devDependencies": {
+    "np": "^6.2.0",
     "prettier": "^1.19.1",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "moment": "^2.24.0"
   }
 }
