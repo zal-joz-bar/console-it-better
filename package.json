@@ -1,0 +1,22 @@
+{
+  "name": "console-it-better",
+  "version": "0.0.1",
+  "description": "The best way to console log your data in CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joz-bar/console-it-better.git"
+  },
+  "keywords": [
+    "console.log"
+  ],
+  "author": "Mikołaj Bartoszko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joz-bar/console-it-better/issues"
+  },
+  "homepage": "https://github.com/joz-bar/console-it-better#readme"
+}
