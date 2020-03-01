@@ -1,18 +1,23 @@
 import Settings from './Settings';
+import {Momentum} from './Middleware/Momentum';
+import BaseMiddleware from './Middleware/BaseMiddleware';
 
 class ConsoleItBetter {
-  public static consoleLog: any;
+  public static consoleLog: (...args: any[]) => void = args => {};
 
-  public static consoleWarn: any;
+  public static consoleWarn: (...args: any[]) => void = args => {};
 
-  public static consoleError: any;
+  public static consoleError: (...args: any[]) => void = args => {};
 
   protected settings: Settings;
+
+  protected MiddlewareMap: Map<Momentum, Array<BaseMiddleware>>;
 
   constructor(settings: Settings) {
     ConsoleItBetter.consoleLog = console.log;
     ConsoleItBetter.consoleWarn = console.warn;
     ConsoleItBetter.consoleError = console.error;
+    this.MiddlewareMap = (new Map<Momentum, Array<BaseMiddleware>>());
     this.settings = settings;
     this.setUp();
   }
@@ -38,9 +43,36 @@ class ConsoleItBetter {
     if (typeof this.settings.dataSeparator !== 'string') {
       this.settings.dataSeparator = ' ';
     }
+    if (typeof this.settings.middleware === 'object') {
+      for (let middleware of this.settings.middleware) {
+        let currentMiddleMoment = this.MiddlewareMap.get(middleware.getMomentum());
+        if (typeof currentMiddleMoment === 'undefined') {
+          currentMiddleMoment = [];
+        }
+        currentMiddleMoment.push(middleware);
+        this.MiddlewareMap.set(middleware.getMomentum(), currentMiddleMoment)
+      }
+    }
   }
 
   protected run(args: Array<any>, provider: (data: any) => void) {
+    args = this.runMiddleware(Momentum.BeforeProcessors, args);
+    args = this.runProcessors(args);
+    args = this.runMiddleware(Momentum.AfterProcessors, args);
+    args = this.runMiddleware(Momentum.BeforeLog, args);
+    provider.apply(this, args);
+    this.runMiddleware(Momentum.AfterLog, args);
+  }
+
+  private runMiddleware(momentum: Momentum, args: Array<any>): Array<any> {
+    let middleToFire = this.MiddlewareMap.get(momentum) || [];
+    for (let Middle of middleToFire) {
+      args = Middle.run(args);
+    }
+    return args;
+  }
+
+  private runProcessors(args: Array<any>): Array<any> {
     if (typeof this.settings.processors === 'object') {
       for (let processor of this.settings.processors) {
         processor.run();
@@ -51,8 +83,7 @@ class ConsoleItBetter {
         }
       }
     }
-
-    provider.apply(this, args);
+    return args;
   }
 
 }

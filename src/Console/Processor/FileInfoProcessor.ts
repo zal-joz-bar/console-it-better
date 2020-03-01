@@ -29,7 +29,7 @@ class FileInfoProcessor extends Processor {
       filePathInfo: Array<string>;
 
     if (errorDebug.stack) {
-      callStackInFile = errorDebug.stack.split('\n')[5];
+      callStackInFile = errorDebug.stack.split('\n')[6];
       callStackInFile
         .replace(/\s/, '')
         .replace(
