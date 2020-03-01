@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf ./dist && tsc",
-    "publish": "npm run build && npx np && git push origin master",
+    "publish:master": "git push origin master:master && npm run build && npx np && git push origin master:master",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
