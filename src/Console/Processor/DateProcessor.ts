@@ -5,7 +5,7 @@ class DateProcessor extends Processor {
 
   protected format: string;
 
-  constructor(format: string = 'YYYY-MM-DD HH:mm:ss.SSS:') {
+  constructor(format: string = 'YYYY-MM-DD HH:mm:ss.SSS') {
     super();
     this.format = format;
   }

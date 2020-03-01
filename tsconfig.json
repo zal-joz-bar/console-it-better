@@ -14,7 +14,8 @@
         "node_modules/*"
       ]
     },
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "strictBindCallApply": false
   },
   "include": [
     "src/**/*"
