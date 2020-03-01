@@ -1,6 +1,6 @@
 {
   "name": "console-it-better",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The best way to console log your data in CLI",
   "main": "dist/index.js",
   "scripts": {
