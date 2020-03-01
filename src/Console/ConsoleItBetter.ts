@@ -38,25 +38,30 @@ class ConsoleItBetter {
   }
 
   protected runLog(args: any[], provider: (data: any) => void) {
+    let elements = [];
     for (let element of args) {
       if (typeof element === 'object') {
-        element = JSON.stringify(element, null, "\t");
+        element = JSON.stringify(element, null, '\t');
       }
-      let data = [element];
-      if (typeof this.settings.processors === 'object') {
-        for (let processor of this.settings.processors) {
-          processor.run();
-          if (processor.isSuffix()) {
-            data.unshift(processor.getProcessedData());
-          } else {
-            data.push(processor.getProcessedData());
-          }
+      elements.push(element);
+    }
+    if (typeof this.settings.processors === 'object') {
+      for (let processor of this.settings.processors) {
+        processor.run();
+        if (processor.isSuffix()) {
+          elements.unshift(processor.getProcessedData());
+        } else {
+          elements.push(processor.getProcessedData());
         }
       }
-      provider(data.join(' '));
     }
+    let separator: string = ' ';
+    if (this.settings.dataSeparator) {
+      separator = this.settings.dataSeparator;
+    }
+    provider(elements.join(separator));
   }
-
 }
+
 
 export default ConsoleItBetter;

@@ -11,7 +11,7 @@ class DateProcessor extends Processor {
   }
 
   run(): Processor {
-    this.processedData = moment().format();
+    this.processedData = moment().format(this.format);
     return this;
   }
 
