@@ -13,7 +13,7 @@ class ConsoleItBetter {
 
   protected MiddlewareMap: Map<Momentum, Array<BaseMiddleware>>;
 
-  constructor(settings: Settings) {
+  constructor(settings: Settings = {}) {
     ConsoleItBetter.consoleLog = console.log;
     ConsoleItBetter.consoleWarn = console.warn;
     ConsoleItBetter.consoleError = console.error;
