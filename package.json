@@ -25,9 +25,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/joz-bar/console-it-better/issues"
+    "url": "https://github.com/zal-joz-bar/console-it-better/issues"
   },
-  "homepage": "https://github.com/joz-bar/console-it-better#readme",
+  "homepage": "https://github.com/zal-joz-bar/console-it-better#readme",
   "devDependencies": {
     "np": "^6.2.0",
     "prettier": "^1.19.1",
