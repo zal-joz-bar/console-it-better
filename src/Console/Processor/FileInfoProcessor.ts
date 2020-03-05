@@ -26,7 +26,9 @@ class FileInfoProcessor extends Processor {
       errorDebug: Error = new Error,
       callStackInFile: string,
       filePath: string = '',
-      filePathInfo: Array<string>;
+      filePathInfo: Array<string>,
+      filePathInfoLength: number,
+      fullFilePath: string;
 
     if (errorDebug.stack) {
       callStackInFile = errorDebug.stack.split('\n')[6];
@@ -37,9 +39,13 @@ class FileInfoProcessor extends Processor {
           (substring, args) => filePath = substring.replace(/[()]/g, '')
         );
       filePathInfo = filePath.split(':');
-      fileInfo.line = parseInt(filePathInfo[1], 10);
-      fileInfo.fileName = <string>filePathInfo[0].split('/').pop();
-      fileInfo.fullFilePath = filePathInfo[0];
+      filePathInfoLength = filePathInfo.length;
+      if (filePathInfoLength > 1) {
+        fullFilePath = filePathInfo[filePathInfoLength - 3];
+        fileInfo.line = parseInt(filePathInfo[filePathInfoLength - 2], 10);
+        fileInfo.fileName = <string>fullFilePath.split('/').pop();
+        fileInfo.fullFilePath = fullFilePath;
+      }
     }
 
     return fileInfo;
